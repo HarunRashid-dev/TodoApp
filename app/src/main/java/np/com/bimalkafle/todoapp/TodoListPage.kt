@@ -67,6 +67,7 @@ fun TodoListPage(viewModel: TodoViewModel) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
+            .padding(top = 16.dp) // This will add padding from the top
             .padding(8.dp)
     ) {
         // Input and Add Button
