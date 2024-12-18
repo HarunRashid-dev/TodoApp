@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -47,8 +48,7 @@ class TodoViewModel : ViewModel() {
         val newItem = Todo(
             id = currentList.size + 1,
             title = title,
-                    createdAt = Date(System.currentTimeMillis())
-
+            createdAt = Date(System.currentTimeMillis())
         )
         _todoList.value = currentList + newItem
     }
@@ -69,24 +69,32 @@ fun TodoListPage(viewModel: TodoViewModel) {
             .fillMaxHeight()
             .padding(8.dp)
     ) {
+        // Input and Add Button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedTextField(
                 value = inputText,
                 onValueChange = { inputText = it },
-                label = { Text("Enter Todo") }
+                label = { Text("Enter Todo") },
+                modifier = Modifier.weight(1f)
             )
-            Button(onClick = {
-                if (inputText.isNotBlank()) {
-                    viewModel.addTodo(inputText)
-                    inputText = ""
-                }
-            }) {
-                Text(text = "ADD")
+            Button(
+                onClick = {
+                    if (inputText.isNotBlank()) {
+                        viewModel.addTodo(inputText)
+                        inputText = ""
+                    }
+                },
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text("Add")
             }
         }
 
